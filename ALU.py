@@ -46,3 +46,4 @@ class ALU(IC):
         self.fact1 = fact1
         self.fact2 = fact2
         return self.result(self.fact1 + self.fact2)
+    
