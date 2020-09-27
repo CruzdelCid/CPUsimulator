@@ -1,3 +1,5 @@
+
+
 class ALU(IC):
 
     def __init__ (self):
@@ -18,7 +20,6 @@ class ALU(IC):
             return 0
         elif(self.resultado < 0): 
             self.Negative = True
-            
             return self.resultado * -1
         elif(self.resultado > 15): 
             self.Overflow = True
