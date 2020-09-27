@@ -17,7 +17,7 @@ class Parser():
       
     self.lines = lines ##atributo que contiene la lista de instrucciones 'limpias' sin comentarios ni \n
 
-  #regresa la línea solicitada
+  #Retorna la línea que se le solicita
   def get_line(self, line): 
     return self.lines[line]
 
