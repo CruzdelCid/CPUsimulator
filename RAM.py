@@ -17,5 +17,11 @@ class Parser():
       
     self.lines = lines ##atributo que contiene la lista de instrucciones 'limpias' sin comentarios ni \n
 
-progra1=Parser('programa1.cpufm')
+  #regresa la línea solicitada
+  def get_line(self, line): 
+    return self.lines[line]
+
+progra1 = Parser('programa1.cpufm')
 print(progra1.lines)
+print(progra1.lines[3])
+print(progra1.get_line(3))
