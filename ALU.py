@@ -46,4 +46,15 @@ class ALU(IC):
         self.fact1 = fact1
         self.fact2 = fact2
         return self.result(self.fact1 + self.fact2)
+
+    def Xor(self, fact1, fact2):
+        self.fact1 = fact1
+        self.fact2 = fact2
+        return 
     
+    def Not(self, fact1, fact2):
+        self.fact1 = fact1
+        self.fact2 = fact2
+        return self.result(0)
+
+
