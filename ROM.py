@@ -1,53 +1,202 @@
 class ROM: 
-
   def __init__(self): 
-    self.línea = ""
-    self.op_Code = ""
+    self.linea = ""
     self.comando = ""
+    self.numero = ""
+
+  #Convierte los números decimal al binario. 
+  def convert(self, numero): 
+    pass
+
+  #Obtiene los valores de los registros 
+  def get_reg(self, numero): 
+    pass
+
+  #Setea los valores en los registros
+  def set_reg(self, numero): 
+    pass
+
+  #Recibe la línea y separa el comando (op_code) del número (input)
+  def execute_i(self, line): 
+    separador = line
+    count = len(separador)
+    if (count < 5):
+      self.comando = separador.strip()
+      self.numero = "0000"
+    else: 
+      corte = count - 4 
+      self.comando = separador[0:corte].strip()
+      self.numero = separador[corte:]
+    self.format(comando)
+
+  #Decoder - para poder detectar instrucción válida e inválida
+  #array asociativo
+  def format(self, comando): 
+    instrucciones={}
+    instrucciones['0000']='0000'
+    instrucciones['OUT']='0000'
+    instrucciones['OUTPUT']='0000'
+
+    instrucciones['0001']='0001'
+    instrucciones['LOAD_R0']='0001'
+    instrucciones['LD_R0']='0001'
+    
+    instrucciones['0010'] = '0010'
+    instrucciones['LOAD_R1'] = '0010'
+    instrucciones['LD_R1'] = '0010'
+
+    instrucciones['0011'] = '0011'
+    instrucciones['AND'] = '0011'
+
+    instrucciones['0100'] = '0100'
+    instrucciones['ILD_R0'] = '0100'
+    
+    instrucciones['0101'] = '0101'
+    instrucciones['STORE_R0'] = '0101'
+    instrucciones['STR_R0'] = '0101'
+
+    instrucciones['0110'] = '0110'
+    instrucciones['STORE_R1'] = '0110'
+    instrucciones['STR_R1'] = '0110'
+
+    instrucciones['0111'] = '0111'
+    instrucciones['OR'] = '0111'
+
+    instrucciones['1000'] = '1000'
+    instrucciones['ILD_R1'] = '1000'
+
+    instrucciones['1001'] = '1001'
+    instrucciones['ADD'] = '1001'
+
+    instrucciones['1010'] = '1010'
+    instrucciones['SUB'] = '1010'
+
+    instrucciones['1011'] = '1011'
+    instrucciones['JUMP'] = '1011'
+    instrucciones['JMP'] = '1011'
+
+    instrucciones['1100'] = '1100'
+    instrucciones['JUMP_NEG'] = '1100'
+    instrucciones['JMP_N'] = '1100'
+
+    #Pendiente de definir
+    instrucciones['1101'] = '1101'
+    instrucciones['QQQQQQQQQQ'] = '1101'
+    instrucciones['QQQQQQQQQQ'] = '1101'
+
+    #Pendiente de definir
+    instrucciones['1110'] = '1110'
+    instrucciones['QQQQQQQQQQ'] = '1110'
+    instrucciones['QQQQQQQQQQ'] = '1110'
+
+    instrucciones['1111'] = '1111'
+    instrucciones['HALT'] = '1111'
+    instrucciones['HLT'] = '1111'
+
+    try:
+      self.comando = instrucciones[comando]
+    except KeyError:
+      self.comando = None
+      print('ERROR: comando invalido' )
+
+    self.execute_f(self, self.comando, self.numero)
+
 
   def out(self, numero): 
-    pass
+    print("0")
+
   def ld_r0(self, numero): 
-    pass
+    print("1")
+
   def ld_r1(self, numero):
-    pass
+    print("2")
+
   def and_(self, numero): 
-    pass
+    print("3")
+
   def ild_r0(self, numero):
-    pass
+    print("4")
+  
   def str_r0(self, numero): 
-    pass
+    print("5")
+
   def str_r1(self, numero): 
-    pass
+    print("6")
+
   def or_(self, numero): 
-    pass
+    print("7")
+
   def ild_r1(self, numero): 
-    pass
+    print("8")
+
   def add(self, numero): 
-    pass 
+    print("9")
+
   def sub(self, numero): 
-    pass
+    print("10")
+
   def jmp(self, numero): 
-    pass
+    print("11")
+
   def jmp_n(self, numero): 
-    pass
-  def funtio1(self, numero): 
-    pass
+    print("12")
+
+  def funtion1(self, numero): 
+    print("13")
+
   def funtion2(self, numero): 
-    pass
-  def halt(self, numero):
-    pass
+    print("14")
+
+  def halt(self):
+    print("15")
 
 
-  def instruccion(self, comando, input):
-      intruction = 
-      numero = 
-      if (intruction == "OUTPUT" or "OUT" or "0000")
-        self.out(numero)
-      elif (intruction == "LOAD_R0" or "LD_R0" or "0001")
-        self.ld_r0(numero)
-      elif (intruction == "LOAD_R1" or "LD_R1" or "0010")
-        self.ld_r0(numero)
-      elif 
+  #Aquí ejecutan todas las instrucciones después de ser llamadas por el execute_f, final
+  def execute_f(self, comando, numero): 
+    if (comando == "0000"):
+      self.out(numero)
+
+    elif (comando == "0001"):
+      self.ld_r0(numero)
+
+    elif (comando == "0010"): 
+      self.ld_r1(numero)
+
+    elif (comando == "0011"): 
+      self.and_(numero)
+
+    elif (comando == "0100"): 
+      self.ild_r0(numero)
+
+    elif (comando == "0101"): 
+      self.str_r0(numero)
+
+    elif (comando == "0110"): 
+      self.str_r1(numero)
+
+    elif (comando == "0111"): 
+      self.or_(numero)
+
+    elif (comando == "1000"): 
+      self.ild_r1(numero)
+
+    elif (comando == "1001"): 
+      self.add(numero)
+
+    elif (comando == "1010"): 
+      self.sub(numero)
+
+    elif (comando == "1011"): 
+      self.jmp(numero)
+
+    elif (comando == "1100"): 
+      self.jmp_n(numero)
+
+    elif (comando == "1101"): 
+      self.funtion2(numero)
+    
+    elif (comando == "1110"): 
+      self.funtion2(numero)
       
-
+    elif (comando == "1111"): 
+      self.halt()
