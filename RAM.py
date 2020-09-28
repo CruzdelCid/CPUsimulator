@@ -21,6 +21,9 @@ class Parser():
   def get_line(self, line): 
     return self.lines[line]
 
+class Data(): 
+  pass
+
 """
 progra1 = Parser('programa1.cpufm')
 print(progra1.lines)

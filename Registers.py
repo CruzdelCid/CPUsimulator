@@ -5,8 +5,8 @@ class Registrers(Memory.Memory):
   def __init__(self, newVal = [0]*4):
     self.val = newVal
 
-  def getVal(self):
+  def get_val(self):
     return self.val
 
-  def modiVal(self, new):
+  def modi_val(self, new):
     self.val = new
