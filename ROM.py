@@ -1,11 +1,12 @@
 import Registers
 from RAM import Parser
 from RAM import Data
+from IC import IC
 
 #INSTANCIA DE REGISTROS DE PRUEBA
 regis = Registers()
 
-class ROM: 
+class ROM(IC): 
   def __init__(self): 
     self.linea = ""
     self.comando = ""
