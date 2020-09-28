@@ -32,7 +32,15 @@ class ROM:
 
   #Setea los valores en los registros
   def set_reg(self, numero): #La entrada de esto será en binario, por ejemplo, "00" para registro 0, R0
-    pass
+    val = self.numero
+    if (numero == "00"):
+      regis[0].modi_val = val
+    elif(numero == "01"): 
+      regis[1].get_val = val
+    elif(numero == "02"): 
+      regis[2].get_val = val
+    elif(numero == "03"): 
+      regis[3].get_val = val
 
 
   #Recibe la línea y separa el comando (op_code) del número (input)
