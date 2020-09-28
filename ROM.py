@@ -1,4 +1,6 @@
 import Registers
+from RAM import Parser
+from RAM import Data
 
 #INSTANCIA DE REGISTROS DE PRUEBA
 regis = Registers()
@@ -131,7 +133,7 @@ class ROM:
   #Aquí está definido el intruction set table
   def out(self, numero): 
 
-    
+
     print("0")
 
   def ld_r0(self, numero): 

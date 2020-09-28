@@ -21,7 +21,9 @@ class Parser():
   def get_line(self, line): 
     return self.lines[line]
 
-class Data(): 
+class Data():
+  def __init__(self, filenam): 
+     pass
   pass
 
 """
