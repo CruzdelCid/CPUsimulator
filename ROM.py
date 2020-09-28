@@ -13,6 +13,7 @@ class ROM:
 
   #Convierte los números binario a decimal. 
   def convert(self, numero): 
+
     pass
   
   
@@ -49,7 +50,7 @@ class ROM:
   def execute_i(self, line): 
     separador = line
     count = len(separador)
-    if (count < 5):
+    if (count < 5 or separador == "SYS_INFO" or separador == "SYS_INFO "):
       self.comando = separador.strip()
       self.numero = "0000"
     else: 
@@ -88,7 +89,7 @@ class ROM:
 
     instrucciones['0110'] = '0110'
     instrucciones['STORE_R1'] = '0110'
-    instrucciones['STR_R1'] = '0110'
+    instrucciones['STR_R1'] = '0110'ss
 
     instrucciones['0111'] = '0111'
     instrucciones['OR'] = '0111'
@@ -232,6 +233,8 @@ class ROM:
       
     elif (comando == "1111"): 
       self.halt()
+    else:
+      print()
 
 class Bios():
   pass
