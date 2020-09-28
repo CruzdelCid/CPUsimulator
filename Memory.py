@@ -1,3 +1,4 @@
+from IC import IC
 class Memory(IC):
     def __init__ (self):
         self.purpose="Memory"
