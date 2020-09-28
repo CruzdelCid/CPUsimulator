@@ -97,7 +97,7 @@ class CU():
     return [instruccion,arg1,arg2]
 
 import time #para poder hacer el sleep
-bios=Bios('bios.yaml')
+bios=Bios('bios.yml')
 programa=CU('programa1.cpufm')
 ##todo con ROM para pasar las instrucciones / diccionario
 
