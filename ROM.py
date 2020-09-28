@@ -1,3 +1,5 @@
+import Registers
+
 class ROM: 
   def __init__(self): 
     self.linea = ""
@@ -10,11 +12,13 @@ class ROM:
 
   #Obtiene los valores de los registros 
   def get_reg(self, numero): 
-    pass
+    val1 = Registers[0]
+    val2 = Registers[1]
 
   #Setea los valores en los registros
   def set_reg(self, numero): #La entrada de esto será en binario, por ejemplo, "00" para registro 0, R0
     pass
+
 
   #Recibe la línea y separa el comando (op_code) del número (input)
   def execute_i(self, line): 
