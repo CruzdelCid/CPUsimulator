@@ -4,7 +4,7 @@ class ROM:
     self.comando = ""
     self.numero = ""
 
-  #Convierte los números decimal al binario. 
+  #Convierte los números binario a decimal. 
   def convert(self, numero): 
     pass
 
@@ -13,7 +13,7 @@ class ROM:
     pass
 
   #Setea los valores en los registros
-  def set_reg(self, numero): 
+  def set_reg(self, numero): #La entrada de esto será en binario, por ejemplo, "00" para registro 0, R0
     pass
 
   #Recibe la línea y separa el comando (op_code) del número (input)
