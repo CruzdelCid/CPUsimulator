@@ -31,16 +31,16 @@ class ROM:
     return fact
 
   #Setea los valores en los registros
-  def set_reg(self, numero): #La entrada de esto será en binario, por ejemplo, "00" para registro 0, R0
+  def set_reg(self, numero, val): #La entrada de esto será en binario, por ejemplo, "00" para registro 0 (R0)
     val = self.numero
     if (numero == "00"):
-      regis[0].modi_val = val
+      regis[0].modi_val(val)
     elif(numero == "01"): 
-      regis[1].get_val = val
+      regis[1].modi_val(val)
     elif(numero == "02"): 
-      regis[2].get_val = val
+      regis[2].modi_val(val)
     elif(numero == "03"): 
-      regis[3].get_val = val
+      regis[3].modi_val(val)
 
 
   #Recibe la línea y separa el comando (op_code) del número (input)
@@ -130,6 +130,8 @@ class ROM:
 
   #Aquí está definido el intruction set table
   def out(self, numero): 
+
+    
     print("0")
 
   def ld_r0(self, numero): 
