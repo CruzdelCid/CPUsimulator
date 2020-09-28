@@ -11,7 +11,6 @@ class ALU(IC):
         self.Negative = None
         self.OP_code = None
         self.Input = None
-        self.result = 0
 
     def result(self, resultado):
         self.resultado = resultado
@@ -30,22 +29,30 @@ class ALU(IC):
     def And(self, fact1, fact2):
         self.fact1 = fact1
         self.fact2 = fact2
-        return self.result(self.fact1 and self.fact2)
+
+        num = self.result(self.fact1 and self.fact2)
+        return num
 
     def Or(self, fact1, fact2):
         self.fact1 = fact1
         self.fact2 = fact2
-        return self.result(self.fact1 or self.fact2)
+
+        num = self.result(self.fact1 or self.fact2)
+        return num
         
     def Add(self, fact1, fact2):
         self.fact1 = fact1
         self.fact2 = fact2
-        return self.result(self.fact1 + self.fact2)
+
+        num = self.result(self.fact1 + self.fact2)
+        return num
     
     def Sub(self, fact1, fact2):
         self.fact1 = fact1
         self.fact2 = fact2
-        return self.result(self.fact1 + self.fact2)
+
+        num = self.result(self.fact1 - self.fact2)
+        return num
 
     def Xor(self, fact1, fact2):
         self.fact1 = fact1
@@ -55,6 +62,6 @@ class ALU(IC):
     def Not(self, fact1, fact2):
         self.fact1 = fact1
         self.fact2 = fact2
-        return self.result(0)
 
-
+        num = self.result(0)
+        return num
