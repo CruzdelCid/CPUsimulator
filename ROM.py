@@ -27,6 +27,8 @@ class ROM:
       corte = count - 4 
       self.comando = separador[0:corte].strip()
       self.numero = separador[corte:]
+      comando = self.comando
+    
     self.format(comando)
 
   #Decoder - para poder detectar instrucción válida e inválida
@@ -98,10 +100,10 @@ class ROM:
     except KeyError:
       self.comando = None
       print('ERROR: comando invalido' )
+    comando = self.comando
+    self.execute_f(comando)
 
-    self.execute_f(self, self.comando, self.numero)
-
-
+  #Aquí está definido el intruction set table
   def out(self, numero): 
     print("0")
 
@@ -152,7 +154,8 @@ class ROM:
 
 
   #Aquí ejecutan todas las instrucciones después de ser llamadas por el execute_f, final
-  def execute_f(self, comando, numero): 
+  def execute_f(self, comando):
+    numero = self.numero
     if (comando == "0000"):
       self.out(numero)
 
@@ -200,3 +203,10 @@ class ROM:
       
     elif (comando == "1111"): 
       self.halt()
+
+class Bios():
+  pass
+
+rom = ROM()
+line = "STORE_R1 0100"
+rom.execute_i(line)
