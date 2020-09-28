@@ -89,7 +89,7 @@ class ROM:
 
     instrucciones['0110'] = '0110'
     instrucciones['STORE_R1'] = '0110'
-    instrucciones['STR_R1'] = '0110'ss
+    instrucciones['STR_R1'] = '0110'
 
     instrucciones['0111'] = '0111'
     instrucciones['OR'] = '0111'
@@ -133,8 +133,6 @@ class ROM:
 
   #Aquí está definido el intruction set table
   def out(self, numero): 
-
-
     print("0")
 
   def ld_r0(self, numero): 
