@@ -1,4 +1,5 @@
 from Bios import Bios
+from IC import IC
 
 #bios
 #carga configuración y la deja lista para el programa
@@ -47,7 +48,7 @@ instrucciones['HLT']='1111'
 
 
 
-class CU():
+class CU(IC):
   def __init__(self, filename):
     self.lines = [] ##atributo que contiene la lista de instrucciones 'limpias' sin comentarios ni \n
     self.lines_original = [] ##atributo que tiene la linea original del programa
