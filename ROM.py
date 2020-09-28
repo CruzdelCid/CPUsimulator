@@ -83,13 +83,11 @@ class ROM:
 
     #Pendiente de definir
     instrucciones['1101'] = '1101'
-    instrucciones['QQQQQQQQQQ'] = '1101'
-    instrucciones['QQQQQQQQQQ'] = '1101'
+    instrucciones['SYS_INFO'] = '1101'
 
     #Pendiente de definir
     instrucciones['1110'] = '1110'
-    instrucciones['QQQQQQQQQQ'] = '1110'
-    instrucciones['QQQQQQQQQQ'] = '1110'
+    instrucciones['COPY'] = '1110'
 
     instrucciones['1111'] = '1111'
     instrucciones['HALT'] = '1111'
@@ -143,10 +141,10 @@ class ROM:
   def jmp_n(self, numero): 
     print("12")
 
-  def funtion1(self, numero): 
+  def sys_info(self, numero): 
     print("13")
 
-  def funtion2(self, numero): 
+  def copy(self, numero): 
     print("14")
 
   def halt(self):
@@ -196,10 +194,10 @@ class ROM:
       self.jmp_n(numero)
 
     elif (comando == "1101"): 
-      self.funtion2(numero)
+      self.sys_info(numero)
     
     elif (comando == "1110"): 
-      self.funtion2(numero)
+      self.copy(numero)
       
     elif (comando == "1111"): 
       self.halt()
@@ -208,5 +206,5 @@ class Bios():
   pass
 
 rom = ROM()
-line = "STORE_R1 0100"
+line = "COPY 0100"
 rom.execute_i(line)
