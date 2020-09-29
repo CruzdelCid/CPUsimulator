@@ -1,6 +1,4 @@
 from Registers import Registers
-from RAM import Parser
-from RAM import Data
 from IC import IC
 from ALU import ALU
 
@@ -15,7 +13,6 @@ alu = ALU()
 bios = yaml.safe_load(open("bios.yml"))
 data = bios['RAM']['data'] 
 
-#
 
 
 class ROM(IC): 
@@ -103,25 +100,25 @@ class ROM(IC):
   def get_reg(self, posicion):
     fact = 0
     if (posicion == "00"): 
-      fact = regis[0].get_val
+      fact = regis.val[0]
     elif(posicion == "01"): 
-      fact = regis[1].get_val
+      fact = regis.val[1]
     elif(posicion == "02"): 
-      fact = regis[2].get_val
+      fact = regis.val[2]
     elif(posicion == "03"): 
-      fact = regis[3].get_val
+      fact = regis.val[3]
     return fact
 
   #Setea los valores en los registros
-  def set_reg(self, posicion, val): #La entrada de esto será en binario, por ejemplo, "00" para registro 0 (R0)
+  def set_reg(self, posicion, valor): #La entrada de esto será en binario, por ejemplo, "00" para registro 0 (R0)
     if (posicion == "00"):
-      regis[0].modi_val(val)
+      regis.val[0] = valor
     elif(posicion == "01"): 
-      regis[1].modi_val(val)
+      regis.val[1] = valor
     elif(posicion == "02"): 
-      regis[2].modi_val(val)
+      regis.val[2] = valor
     elif(posicion == "03"): 
-      regis[3].modi_val(val)
+      regis.val[3] = valor
 
   #Obtiene los valores de la data cuando se les da su posición
   def get_data(self, posicion): 
@@ -137,16 +134,15 @@ class ROM(IC):
   def execute_i(self, line): 
     separador = line
     count = len(separador)
-    if (count < 5 or separador == "SYS_INFO" or separador == "SYS_INFO "):
+    if (count < 5 or separador == "SYS_INFO" or separador == "OUTPUT" or separador == "OUT" or separador == "HALT" or separador == "HLT"):
       self.comando = separador.strip()
       self.numero = "0000"
     else: 
       corte = count - 4 
       self.comando = separador[0:corte].strip()
       self.numero = separador[corte:]
-      comando = self.comando
     
-    self.format(comando)
+    self.format(self.comando)
 
   #Decoder - para poder detectar instrucción válida e inválida
   #array asociativo
@@ -162,78 +158,78 @@ class ROM(IC):
 
   #Aquí está definido el intruction set table
   def out(self, numero): 
-    print(regis.get_reg("00"))
+    print(self.get_reg("00"))
 
   def ld_r0(self, numero):
-    direccion = convert(numero)
-    valor = data.get_data(direccion)
-    regis.set_reg("00", valor)
+    direccion = self.convert(numero)
+    valor = self.get_data(direccion)
+    self.set_reg("00", valor)
     print("1")
 
   def ld_r1(self, numero):
-    direccion = convert(numero)
-    valor = data.get_data(direccion)
-    regis.set_reg("01", valor)
+    direccion = self.convert(numero)
+    valor = self.get_data(direccion)
+    self.set_reg("01", valor)
     print("2")
 
   def and_(self, numero):
     num1 = numero[:2]
     num2 = numero[2:]
-    fact1 = regis.get_reg(num1)
-    fact2 = regis.get_reg(num2)
+    fact1 = self.get_reg(num1)
+    fact2 = self.get_reg(num2)
     rel = alu.And(fact1, fact2)
-    regis.set_reg(num2, rel)
+    self.set_reg(num2, rel)
     print("3")
 
   def ild_r0(self, numero):
-    direccion = convert(numero)
-    valor = data.get_data(direccion)
-    regis.set_reg("00", valor)
+    direccion = self.convert(numero)
+    valor = self.get_data(direccion)
+    self.set_reg("00", valor)
     print("4")
   
   def str_r0(self, numero):
-    direccion = convert(numero)
-    valor = regis.get_reg("00")
-    data.set_data(direccion, valor)
+    direccion = self.convert(numero)
+    valor = self.get_reg("00")
+    self.set_data(direccion, valor)
     print("5")
 
   def str_r1(self, numero):
-    direccion = convert(numero)
-    valor = regis.get_reg("01")
-    data.set_data(direccion, valor) 
+    direccion = self.convert(numero)
+    valor = self.get_reg("01")
+    self.set_data(direccion, valor) 
     print("6")
 
   def or_(self, numero): 
     num1 = numero[:2]
     num2 = numero[2:]
-    fact1 = regis.get_reg(num1)
-    fact2 = regis.get_reg(num2)
+    fact1 = self.get_reg(num1)
+    fact2 = self.get_reg(num2)
     rel = alu.Or(fact1, fact2)
-    regis.set_reg(num2, rel)
+    self.set_reg(num2, rel)
     print("7")
 
   def ild_r1(self, numero): 
-    direccion = convert(numero)
-    valor = data.get_data(direccion)
-    regis.set_reg("01", valor)
+    direccion = self.convert(numero)
+    valor = self.get_data(direccion)
+    self.set_reg("01", valor)
     print("8")
 
   def add(self, numero): 
     num1 = numero[:2]
     num2 = numero[2:]
-    fact1 = regis.get_reg(num1)
-    fact2 = regis.get_reg(num2)
+    fact1 = self.get_reg(num1)
+    fact2 = self.get_reg(num2)
     rel = alu.Add(fact1, fact2)
-    regis.set_reg(num2, rel)
+    self.set_reg(num2, rel)
     print("9")
 
   def sub(self, numero): 
     num1 = numero[:2]
     num2 = numero[2:]
-    fact1 = regis.get_reg(num1)
-    fact2 = regis.get_reg(num2)
+    fact1 = self.get_reg(num1)
+    fact2 = self.get_reg(num2)
     rel = alu.Sub(fact1, fact2)
-    regis.set_reg(num2, rel)
+    self.set_reg(num2, rel)
     print("10")
 
   def jmp(self, numero): 
@@ -251,8 +247,8 @@ class ROM(IC):
   def copy(self, numero):
     num1 = numero[:2]
     num2 = numero[2:]
-    valor = regis.get_reg(num1)
-    regis.set_reg(num2, valor)
+    valor = self.get_reg(num1)
+    self.set_reg(num2, valor)
     print("14")
 
   def halt(self):
@@ -317,9 +313,14 @@ class Bios():
   pass
 
 rom = ROM()
-line = ["LOAD_R0 0000", "LOAD_R1 0001", "ADD 0001"]
+line = ["LOAD_R0 0000", "LOAD_R1 0001", "ADD 0001", "STORE_R1 0011", "OUTPUT", "SYS_INFO"]
 rom.execute_i(line[0])
 rom.execute_i(line[1])
 rom.execute_i(line[2])
+rom.execute_i(line[3])
+rom.execute_i(line[4])
+rom.execute_i(line[5])
 
-print(regis.get_reg("01"))
+print(rom.get_reg("01"))
+print("********")
+print(data[3])
