@@ -3,8 +3,18 @@ from RAM import Parser
 from RAM import Data
 from IC import IC
 
+#PRUEBA 
+import yaml
+
 #INSTANCIA DE REGISTROS DE PRUEBA
 regis = Registers()
+
+#INSTANCIA DE DATA DE PRUEBA
+bios = yaml.safe_load(open(bios.yml))
+data = bios['RAM']['data'] 
+
+#
+
 
 class ROM(IC): 
   def __init__(self): 
@@ -88,7 +98,7 @@ class ROM(IC):
   Obtiene el valor de un resgistro, numero = a la dirección de registro en formato de dos bits 
   ejemplo: numero = "00" para el registro R0
   """
-  def get_reg(self, numero): 
+  def get_reg(self, numero): #Cambiá numero por posición 
     fact = 0
     if (numero == "00"): 
       fact = regis[0].get_val
@@ -102,7 +112,6 @@ class ROM(IC):
 
   #Setea los valores en los registros
   def set_reg(self, numero, val): #La entrada de esto será en binario, por ejemplo, "00" para registro 0 (R0)
-    val = self.numero
     if (numero == "00"):
       regis[0].modi_val(val)
     elif(numero == "01"): 
@@ -111,6 +120,15 @@ class ROM(IC):
       regis[2].modi_val(val)
     elif(numero == "03"): 
       regis[3].modi_val(val)
+
+  #Obtiene los valores de la data cuando se les da su posición
+  def get_data(self, posicion): 
+    fact = data[posicion]
+    return fact
+
+  #define los valores de la data cuando se les da su posición y el nuevo valor
+  def set_data(self, posicion, val): 
+    data[posicion] = val
 
 
   #Recibe la línea y separa el comando (op_code) del número (input)
