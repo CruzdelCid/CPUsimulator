@@ -10,8 +10,8 @@ import yaml
 regis = Registers()
 
 #INSTANCIA DE DATA DE PRUEBA
-bios = yaml.safe_load(open(bios.yml))
-data = bios['RAM']['data'] 
+#bios = yaml.safe_load(open(bios.yml))
+#data = bios['RAM']['data'] 
 
 #
 

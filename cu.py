@@ -1,6 +1,7 @@
 from Bios import Bios
 from IC import IC
 from ROM import ROM
+
 #bios
 #carga configuración y la deja lista para el programa
 ##https://pypi.org/project/PyYAML/ para descarga yaml
