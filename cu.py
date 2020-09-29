@@ -6,46 +6,6 @@ from ROM import ROM
 ##https://pypi.org/project/PyYAML/ para descarga yaml
 # fátima avila 
 
-# ##todo cargar instrucciones al ROM
-# instrucciones={}
-# instrucciones['0000']='0000'
-# instrucciones['OUT']='0000'
-# instrucciones['OUTPUT']='0000'
-# instrucciones['0001']='0001'
-# instrucciones['LOAD_R0']='0001'
-# instrucciones['LD_R0']='0001'
-# instrucciones['0010']='0010'
-# instrucciones['LOAD_R1']='0010'
-# instrucciones['LD_R1']='0010'
-# instrucciones['0011']='0011'
-# instrucciones['AND']='0011'
-# instrucciones['0100']='0100'
-# instrucciones['ILD_R0']='0100'
-# instrucciones['0101']='0101'
-# instrucciones['STR_R0']='0101'
-# instrucciones['STORE_R1']='0101'
-# instrucciones['0111']='0111'
-# instrucciones['OR']='0111'
-# instrucciones['1000']='1000'
-# instrucciones['ILD_R1']='1000'
-# instrucciones['1001']='1001'
-# instrucciones['ADD']='1001'
-# instrucciones['1010']='1010'
-# instrucciones['SUB']='1010'
-# instrucciones['1011']='1011'
-# instrucciones['JMP']='1011'
-# instrucciones['JUMP']='1011'
-# instrucciones['1100']='1100'
-# instrucciones['JMP_N']='1100'
-# instrucciones['JUMP_NEG']='1100'
-# instrucciones['1101']='1101'
-# instrucciones['SYS_INFO']='1101'
-# instrucciones['BIOS_INFO']='1110'
-# instrucciones['1111']='1111'
-# instrucciones['HALT']='1111'
-# instrucciones['HLT']='1111'
-# ##-----------
-
 
 
 class CU(IC):
@@ -119,8 +79,13 @@ for i in range(len(programa.lines)):
     #arg1 = comando[1]
     #arg2 = comando[2]
     print ('Decode',comando)
-    time.sleep(bios.clock*2/.5)
+    if bios.clock > 0: 
+      time.sleep(bios.clock*2/.5)
+    else:
+      print("Presione ENTER para continuar:")
+      foo = input()
     #execute
+  
 
     ##TODO los ifs etc, operaciones ALU etc
    
