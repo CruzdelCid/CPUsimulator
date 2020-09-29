@@ -1,7 +1,7 @@
-
+from IC import IC
 #parser
 # leer archivo
-class Parser():
+class Parser(IC):
   def __init__(self, filename):
     lines=[]
     file = open('programa1.cpufm', 'r') 
@@ -20,6 +20,11 @@ class Parser():
   #Retorna la línea que se le solicita
   def get_line(self, line): 
     return self.lines[line]
+
+class Data(IC):
+  def __init__(self, filenam): 
+     pass
+  pass
 
 """
 progra1 = Parser('programa1.cpufm')

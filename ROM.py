@@ -1,4 +1,12 @@
-class ROM: 
+import Registers
+from RAM import Parser
+from RAM import Data
+from IC import IC
+
+#INSTANCIA DE REGISTROS DE PRUEBA
+regis = Registers()
+
+class ROM(IC): 
   def __init__(self): 
     self.linea = ""
     self.comando = ""
@@ -6,21 +14,44 @@ class ROM:
 
   #Convierte los números binario a decimal. 
   def convert(self, numero): 
-    pass
 
-  #Obtiene los valores de los registros 
-  def get_reg(self, numero): 
     pass
+  
+  
+  """
+  Obtiene el valor de un resgistro, numero = a la dirección de registro en formato de dos bits 
+  ejemplo: numero = "00" para el registro R0
+  """
+  def get_reg(self, numero): 
+    fact = 0
+    if (numero == "00"): 
+      fact = regis[0].get_val
+    elif(numero == "01"): 
+      fact = regis[1].get_val
+    elif(numero == "02"): 
+      fact = regis[2].get_val
+    elif(numero == "03"): 
+      fact = regis[3].get_val
+    return fact
 
   #Setea los valores en los registros
-  def set_reg(self, numero): #La entrada de esto será en binario, por ejemplo, "00" para registro 0, R0
-    pass
+  def set_reg(self, numero, val): #La entrada de esto será en binario, por ejemplo, "00" para registro 0 (R0)
+    val = self.numero
+    if (numero == "00"):
+      regis[0].modi_val(val)
+    elif(numero == "01"): 
+      regis[1].modi_val(val)
+    elif(numero == "02"): 
+      regis[2].modi_val(val)
+    elif(numero == "03"): 
+      regis[3].modi_val(val)
+
 
   #Recibe la línea y separa el comando (op_code) del número (input)
   def execute_i(self, line): 
     separador = line
     count = len(separador)
-    if (count < 5):
+    if (count < 5 or separador == "SYS_INFO" or separador == "SYS_INFO "):
       self.comando = separador.strip()
       self.numero = "0000"
     else: 
@@ -201,6 +232,8 @@ class ROM:
       
     elif (comando == "1111"): 
       self.halt()
+    else:
+      print()
 
 class Bios():
   pass
