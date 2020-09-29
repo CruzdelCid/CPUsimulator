@@ -8,3 +8,5 @@ class Bios():
     self.ram_data=bios['RAM']['data'] 
     self.ram_instructions=bios['RAM']['instructions'] 
     self.full = bios
+
+bio = Bios("bios.yml")

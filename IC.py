@@ -1,5 +1,8 @@
+from datetime import date
+
 class IC:
-    def __init__ (self):
-        self.manufacturer=""
-        self.buildDate = ""
-        self.purpose = ""
+    
+    date = date.today()
+    manufacturer = "Intel XD"
+    build_date = date
+    purpose = "Simular un CPU"
