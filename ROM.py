@@ -2,15 +2,17 @@ from Registers import Registers
 from RAM import Parser
 from RAM import Data
 from IC import IC
+from ALU import ALU
 
 #PRUEBA 
 import yaml
 
 #INSTANCIA DE REGISTROS DE PRUEBA
 regis = Registers()
+alu = ALU()
 
 #INSTANCIA DE DATA DE PRUEBA
-bios = yaml.safe_load(open(bios.yml))
+bios = yaml.safe_load(open("bios.yml"))
 data = bios['RAM']['data'] 
 
 #
@@ -160,36 +162,78 @@ class ROM(IC):
 
   #Aquí está definido el intruction set table
   def out(self, numero): 
-    print("0")
+    print(regis.get_reg("00"))
 
-  def ld_r0(self, numero): 
+  def ld_r0(self, numero):
+    direccion = convert(numero)
+    valor = data.get_data(direccion)
+    regis.set_reg("00", valor)
     print("1")
 
   def ld_r1(self, numero):
+    direccion = convert(numero)
+    valor = data.get_data(direccion)
+    regis.set_reg("01", valor)
     print("2")
 
-  def and_(self, numero): 
+  def and_(self, numero):
+    num1 = numero[:2]
+    num2 = numero[2:]
+    fact1 = regis.get_reg(num1)
+    fact2 = regis.get_reg(num2)
+    rel = alu.And(fact1, fact2)
+    regis.set_reg(num2, rel)
     print("3")
 
   def ild_r0(self, numero):
+    direccion = convert(numero)
+    valor = data.get_data(direccion)
+    regis.set_reg("00", valor)
     print("4")
   
-  def str_r0(self, numero): 
+  def str_r0(self, numero):
+    direccion = convert(numero)
+    valor = regis.get_reg("00")
+    data.set_data(direccion, valor)
     print("5")
 
-  def str_r1(self, numero): 
+  def str_r1(self, numero):
+    direccion = convert(numero)
+    valor = regis.get_reg("01")
+    data.set_data(direccion, valor) 
     print("6")
 
   def or_(self, numero): 
+    num1 = numero[:2]
+    num2 = numero[2:]
+    fact1 = regis.get_reg(num1)
+    fact2 = regis.get_reg(num2)
+    rel = alu.Or(fact1, fact2)
+    regis.set_reg(num2, rel)
     print("7")
 
   def ild_r1(self, numero): 
+    direccion = convert(numero)
+    valor = data.get_data(direccion)
+    regis.set_reg("01", valor)
     print("8")
 
   def add(self, numero): 
+    num1 = numero[:2]
+    num2 = numero[2:]
+    fact1 = regis.get_reg(num1)
+    fact2 = regis.get_reg(num2)
+    rel = alu.Add(fact1, fact2)
+    regis.set_reg(num2, rel)
     print("9")
 
   def sub(self, numero): 
+    num1 = numero[:2]
+    num2 = numero[2:]
+    fact1 = regis.get_reg(num1)
+    fact2 = regis.get_reg(num2)
+    rel = alu.Sub(fact1, fact2)
+    regis.set_reg(num2, rel)
     print("10")
 
   def jmp(self, numero): 
@@ -199,12 +243,20 @@ class ROM(IC):
     print("12")
 
   def sys_info(self, numero): 
+    print(self.manufacturer)
+    print(self.build_date)
+    print(self.purpose)
     print("13")
 
-  def copy(self, numero): 
+  def copy(self, numero):
+    num1 = numero[:2]
+    num2 = numero[2:]
+    valor = regis.get_reg(num1)
+    regis.set_reg(num2, valor)
     print("14")
 
   def halt(self):
+
     print("15")
 
 
@@ -265,5 +317,9 @@ class Bios():
   pass
 
 rom = ROM()
-line = "COPY 0100"
-rom.execute_i(line)
+line = ["LOAD_R0 0000", "LOAD_R1 0001", "ADD 0001"]
+rom.execute_i(line[0])
+rom.execute_i(line[1])
+rom.execute_i(line[2])
+
+print(regis.get_reg("01"))

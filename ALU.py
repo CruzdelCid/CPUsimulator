@@ -57,11 +57,11 @@ class ALU(IC):
     def Xor(self, fact1, fact2):
         self.fact1 = fact1
         self.fact2 = fact2
+        num = self.result(self.fact1 ^ self.fact2)
         return 
     
-    def Not(self, fact1, fact2):
+    def Not(self, fact1 = 0, fact2 = 0):
         self.fact1 = fact1
         self.fact2 = fact2
-
         num = self.result(0)
         return num
