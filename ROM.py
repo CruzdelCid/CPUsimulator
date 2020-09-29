@@ -98,27 +98,27 @@ class ROM(IC):
   Obtiene el valor de un resgistro, numero = a la dirección de registro en formato de dos bits 
   ejemplo: numero = "00" para el registro R0
   """
-  def get_reg(self, numero): #Cambiá numero por posición 
+  def get_reg(self, posicion):
     fact = 0
-    if (numero == "00"): 
+    if (posicion == "00"): 
       fact = regis[0].get_val
-    elif(numero == "01"): 
+    elif(posicion == "01"): 
       fact = regis[1].get_val
-    elif(numero == "02"): 
+    elif(posicion == "02"): 
       fact = regis[2].get_val
-    elif(numero == "03"): 
+    elif(posicion == "03"): 
       fact = regis[3].get_val
     return fact
 
   #Setea los valores en los registros
-  def set_reg(self, numero, val): #La entrada de esto será en binario, por ejemplo, "00" para registro 0 (R0)
-    if (numero == "00"):
+  def set_reg(self, posicion, val): #La entrada de esto será en binario, por ejemplo, "00" para registro 0 (R0)
+    if (posicion == "00"):
       regis[0].modi_val(val)
-    elif(numero == "01"): 
+    elif(posicion == "01"): 
       regis[1].modi_val(val)
-    elif(numero == "02"): 
+    elif(posicion == "02"): 
       regis[2].modi_val(val)
-    elif(numero == "03"): 
+    elif(posicion == "03"): 
       regis[3].modi_val(val)
 
   #Obtiene los valores de la data cuando se les da su posición
