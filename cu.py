@@ -1,50 +1,50 @@
 from Bios import Bios
 from IC import IC
-
+from ROM import ROM
 #bios
 #carga configuración y la deja lista para el programa
 ##https://pypi.org/project/PyYAML/ para descarga yaml
 # fátima avila 
 
-##todo cargar instrucciones al ROM
-instrucciones={}
-instrucciones['0000']='0000'
-instrucciones['OUT']='0000'
-instrucciones['OUTPUT']='0000'
-instrucciones['0001']='0001'
-instrucciones['LOAD_R0']='0001'
-instrucciones['LD_R0']='0001'
-instrucciones['0010']='0010'
-instrucciones['LOAD_R1']='0010'
-instrucciones['LD_R1']='0010'
-instrucciones['0011']='0011'
-instrucciones['AND']='0011'
-instrucciones['0100']='0100'
-instrucciones['ILD_R0']='0100'
-instrucciones['0101']='0101'
-instrucciones['STR_R0']='0101'
-instrucciones['STORE_R1']='0101'
-instrucciones['0111']='0111'
-instrucciones['OR']='0111'
-instrucciones['1000']='1000'
-instrucciones['ILD_R1']='1000'
-instrucciones['1001']='1001'
-instrucciones['ADD']='1001'
-instrucciones['1010']='1010'
-instrucciones['SUB']='1010'
-instrucciones['1011']='1011'
-instrucciones['JMP']='1011'
-instrucciones['JUMP']='1011'
-instrucciones['1100']='1100'
-instrucciones['JMP_N']='1100'
-instrucciones['JUMP_NEG']='1100'
-instrucciones['1101']='1101'
-instrucciones['SYS_INFO']='1101'
-instrucciones['BIOS_INFO']='1110'
-instrucciones['1111']='1111'
-instrucciones['HALT']='1111'
-instrucciones['HLT']='1111'
-##-----------
+# ##todo cargar instrucciones al ROM
+# instrucciones={}
+# instrucciones['0000']='0000'
+# instrucciones['OUT']='0000'
+# instrucciones['OUTPUT']='0000'
+# instrucciones['0001']='0001'
+# instrucciones['LOAD_R0']='0001'
+# instrucciones['LD_R0']='0001'
+# instrucciones['0010']='0010'
+# instrucciones['LOAD_R1']='0010'
+# instrucciones['LD_R1']='0010'
+# instrucciones['0011']='0011'
+# instrucciones['AND']='0011'
+# instrucciones['0100']='0100'
+# instrucciones['ILD_R0']='0100'
+# instrucciones['0101']='0101'
+# instrucciones['STR_R0']='0101'
+# instrucciones['STORE_R1']='0101'
+# instrucciones['0111']='0111'
+# instrucciones['OR']='0111'
+# instrucciones['1000']='1000'
+# instrucciones['ILD_R1']='1000'
+# instrucciones['1001']='1001'
+# instrucciones['ADD']='1001'
+# instrucciones['1010']='1010'
+# instrucciones['SUB']='1010'
+# instrucciones['1011']='1011'
+# instrucciones['JMP']='1011'
+# instrucciones['JUMP']='1011'
+# instrucciones['1100']='1100'
+# instrucciones['JMP_N']='1100'
+# instrucciones['JUMP_NEG']='1100'
+# instrucciones['1101']='1101'
+# instrucciones['SYS_INFO']='1101'
+# instrucciones['BIOS_INFO']='1110'
+# instrucciones['1111']='1111'
+# instrucciones['HALT']='1111'
+# instrucciones['HLT']='1111'
+# ##-----------
 
 
 
@@ -80,11 +80,12 @@ class CU(IC):
   def decode (self,comando):
     cmd_parts=str.split(comando)
     try:
-      instruccion = instrucciones[cmd_parts[0]]
+      instruccion = rom.format(cmd_parts[0])
     except KeyError:
       instruccion=None
       print('ERROR: comando invalido')
-
+    
+    ## inicialmente en el decode se habia probado parsear la linea, identificar el comando y los argumento, pero el grupo decidio de aca parsear
     try:
       arg1 = cmd_parts[1] ##devuelve en la posición 1 del return el arg1 si existe o NONE
     except IndexError:
@@ -95,11 +96,15 @@ class CU(IC):
     except IndexError:
       arg2=None
      
-    return [instruccion,arg1,arg2]
+    return comando
+
+
+############  inicio de programa ################
 
 import time #para poder hacer el sleep
 bios=Bios('bios.yml')
 programa=CU('programa1.cpufm')
+rom=ROM()
 ##todo con ROM para pasar las instrucciones / diccionario
 
 ##inicia recorrido de las lineas
@@ -111,16 +116,12 @@ for i in range(len(programa.lines)):
     time.sleep(bios.clock*2/.5)
   #decode
     comando=programa.decode(line2execute)
-    cmd=comando[0]
-    if cmd==None: ##error
-        print ('Comando no reconocido :: ',programa.lines_original[programa.lines[i][0]],':: linea ',programa.lines[i][0])
-        exit(0)
-    
-    arg1 = comando[1]
-    arg2 = comando[2]
+    #arg1 = comando[1]
+    #arg2 = comando[2]
     print ('Decode',comando)
     time.sleep(bios.clock*2/.5)
     #execute
+
     ##TODO los ifs etc, operaciones ALU etc
    
    

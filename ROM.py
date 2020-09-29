@@ -4,7 +4,7 @@ from RAM import Data
 from IC import IC
 
 #INSTANCIA DE REGISTROS DE PRUEBA
-regis = Registers()
+#regis = Registers()
 
 class ROM(IC): 
   def __init__(self): 
@@ -12,10 +12,76 @@ class ROM(IC):
     self.comando = ""
     self.numero = ""
 
+    self.instrucciones={}
+    self.instrucciones['0000']='0000'
+    self.instrucciones['OUT']='0000'
+    self.instrucciones['OUTPUT']='0000'
+
+    self.instrucciones['0001']='0001'
+    self.instrucciones['LOAD_R0']='0001'
+    self.instrucciones['LD_R0']='0001'
+    
+    self.instrucciones['0010'] = '0010'
+    self.instrucciones['LOAD_R1'] = '0010'
+    self.instrucciones['LD_R1'] = '0010'
+
+    self.instrucciones['0011'] = '0011'
+    self.instrucciones['AND'] = '0011'
+
+    self.instrucciones['0100'] = '0100'
+    self.instrucciones['ILD_R0'] = '0100'
+    
+    self.instrucciones['0101'] = '0101'
+    self.instrucciones['STORE_R0'] = '0101'
+    self.instrucciones['STR_R0'] = '0101'
+
+    self.instrucciones['0110'] = '0110'
+    self.instrucciones['STORE_R1'] = '0110'
+    self.instrucciones['STR_R1'] = '0110'
+
+    self.instrucciones['0111'] = '0111'
+    self.instrucciones['OR'] = '0111'
+
+    self.instrucciones['1000'] = '1000'
+    self.instrucciones['ILD_R1'] = '1000'
+
+    self.instrucciones['1001'] = '1001'
+    self.instrucciones['ADD'] = '1001'
+
+    self.instrucciones['1010'] = '1010'
+    self.instrucciones['SUB'] = '1010'
+
+    self.instrucciones['1011'] = '1011'
+    self.instrucciones['JUMP'] = '1011'
+    self.instrucciones['JMP'] = '1011'
+
+    self.instrucciones['1100'] = '1100'
+    self.instrucciones['JUMP_NEG'] = '1100'
+    self.instrucciones['JMP_N'] = '1100'
+
+    #Custom Command 1
+    self.instrucciones['1101'] = '1101'
+    self.instrucciones['SYS_INFO'] = '1101'
+
+    #Custom Command 2
+    self.instrucciones['1110'] = '1110'
+    self.instrucciones['COPY'] = '1110'
+
+    self.instrucciones['1111'] = '1111'
+    self.instrucciones['HALT'] = '1111'
+    self.instrucciones['HLT'] = '1111'
+
+    
   #Convierte los números binario a decimal. 
   def convert(self, numero): 
+    b_num = list(numero)
+    value = 0
 
-    pass
+    for i in range(len(b_num)):
+        digit = b_num.pop()
+        if digit == '1':
+          value = value + pow(2, i)
+    return value
   
   
   """
@@ -64,72 +130,14 @@ class ROM(IC):
 
   #Decoder - para poder detectar instrucción válida e inválida
   #array asociativo
-  def format(self, comando): 
-    instrucciones={}
-    instrucciones['0000']='0000'
-    instrucciones['OUT']='0000'
-    instrucciones['OUTPUT']='0000'
-
-    instrucciones['0001']='0001'
-    instrucciones['LOAD_R0']='0001'
-    instrucciones['LD_R0']='0001'
+  def format(self, p_comando): 
     
-    instrucciones['0010'] = '0010'
-    instrucciones['LOAD_R1'] = '0010'
-    instrucciones['LD_R1'] = '0010'
-
-    instrucciones['0011'] = '0011'
-    instrucciones['AND'] = '0011'
-
-    instrucciones['0100'] = '0100'
-    instrucciones['ILD_R0'] = '0100'
-    
-    instrucciones['0101'] = '0101'
-    instrucciones['STORE_R0'] = '0101'
-    instrucciones['STR_R0'] = '0101'
-
-    instrucciones['0110'] = '0110'
-    instrucciones['STORE_R1'] = '0110'
-    instrucciones['STR_R1'] = '0110'
-
-    instrucciones['0111'] = '0111'
-    instrucciones['OR'] = '0111'
-
-    instrucciones['1000'] = '1000'
-    instrucciones['ILD_R1'] = '1000'
-
-    instrucciones['1001'] = '1001'
-    instrucciones['ADD'] = '1001'
-
-    instrucciones['1010'] = '1010'
-    instrucciones['SUB'] = '1010'
-
-    instrucciones['1011'] = '1011'
-    instrucciones['JUMP'] = '1011'
-    instrucciones['JMP'] = '1011'
-
-    instrucciones['1100'] = '1100'
-    instrucciones['JUMP_NEG'] = '1100'
-    instrucciones['JMP_N'] = '1100'
-
-    #Pendiente de definir
-    instrucciones['1101'] = '1101'
-    instrucciones['SYS_INFO'] = '1101'
-
-    #Pendiente de definir
-    instrucciones['1110'] = '1110'
-    instrucciones['COPY'] = '1110'
-
-    instrucciones['1111'] = '1111'
-    instrucciones['HALT'] = '1111'
-    instrucciones['HLT'] = '1111'
-
     try:
-      self.comando = instrucciones[comando]
+      comando = self.instrucciones[p_comando]
     except KeyError:
-      self.comando = None
+      comando = None
       print('ERROR: comando invalido' )
-    comando = self.comando
+      #comando = comando
     self.execute_f(comando)
 
   #Aquí está definido el intruction set table
