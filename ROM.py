@@ -4,7 +4,7 @@ from RAM import Data
 from IC import IC
 
 #INSTANCIA DE REGISTROS DE PRUEBA
-#regis = Registers()
+regis = Registers()
 
 class ROM(IC): 
   def __init__(self): 
