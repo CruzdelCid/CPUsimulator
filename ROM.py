@@ -1,4 +1,4 @@
-import Registers
+from Registers import Registers
 from RAM import Parser
 from RAM import Data
 from IC import IC
