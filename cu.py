@@ -11,10 +11,21 @@ from RAM import Parser
 class CU(IC):
   def __init__(self, filename):
 
-    self.lines = [] ##atributo que contiene la lista de instrucciones 'limpias' sin comentarios ni \n
+    self.lines = Parser(filename) #[] ##atributo que contiene la lista de instrucciones 'limpias' sin comentarios ni \n
+
+  def tamano(self): 
+    lines = self.lines.lista()
+    return len(lines)
+
+  def fetchh(self, line): 
+    lines = self.lines.lista()
+    return lines[line]
+    """
     self.lines_original = [] ##atributo que tiene la linea original del programa
     self.parse(filename)
+    """
 
+  """
   #parser
   # leer archivo
   def parse (self,filename):
@@ -35,6 +46,7 @@ class CU(IC):
     
   def fetch (self,pos):
     return self.lines[pos][1]  ##devuelve la instrucción de la linea (pos 1)
+  """
   
   """
       #Decoder
@@ -70,9 +82,10 @@ rom=ROM()
 ##todo con ROM para pasar las instrucciones / diccionario
 
 ##inicia recorrido de las lineas
-for i in range(len(programa.lines)):
+
+for i in range(programa.tamano()):
   #fetch
-    line2execute = programa.fetch(i) ##método del parser que carga la linea
+    line2execute = programa.fetchh(i) ##método del parser que carga la linea
     print ('Paso',i)
     print ('Fetch ',i,line2execute)
     time.sleep(bios.clock*2/.5)
