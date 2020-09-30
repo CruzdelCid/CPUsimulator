@@ -2,6 +2,7 @@ from Bios import Bios
 from IC import IC
 from ROM import ROM
 from RAM import Parser
+
 #bios
 #carga configuración y la deja lista para el programa
 ##https://pypi.org/project/PyYAML/ para descarga yaml
@@ -17,7 +18,7 @@ class CU(IC):
     lines = self.lines.lista()
     return len(lines)
 
-  def fetchh(self, line): 
+  def fetch(self, line): 
     lines = self.lines.lista()
     return lines[line]
     """
@@ -85,7 +86,7 @@ rom=ROM()
 
 for i in range(programa.tamano()):
   #fetch
-    line2execute = programa.fetchh(i) ##método del parser que carga la linea
+    line2execute = programa.fetch(i) ##método del parser que carga la linea
     print ('Paso',i)
     print ('Fetch ',i,line2execute)
     time.sleep(bios.clock*2/.5)
@@ -106,7 +107,7 @@ for i in range(programa.tamano()):
       foo = input()
       rom.execute_i(line2execute)
 
-      
+    """
     #execute ???
   
 
@@ -116,7 +117,7 @@ for i in range(programa.tamano()):
     #  print('posición linea original',line2execute[0])
   #  print ('linea original',programa.lines_original[line2execute[0]])
     ##
-    
+    """
     print('----------') 
     ##fin recorrido de las lineas
 

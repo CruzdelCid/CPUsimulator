@@ -1,6 +1,7 @@
 from Registers import Registers
 from IC import IC
 from ALU import ALU
+import sys
 
 
 #PRUEBA 
@@ -165,13 +166,11 @@ class ROM(IC):
     direccion = self.convert(numero)
     valor = self.get_data(direccion)
     self.set_reg("00", valor)
-    print("1")
 
   def ld_r1(self, numero):
     direccion = self.convert(numero)
     valor = self.get_data(direccion)
     self.set_reg("01", valor)
-    print("2")
 
   def and_(self, numero):
     num1 = numero[:2]
@@ -180,25 +179,21 @@ class ROM(IC):
     fact2 = self.get_reg(num2)
     rel = alu.And(fact1, fact2)
     self.set_reg(num2, rel)
-    print("3")
 
   def ild_r0(self, numero):
     direccion = self.convert(numero)
     valor = self.get_data(direccion)
     self.set_reg("00", valor)
-    print("4")
   
   def str_r0(self, numero):
     direccion = self.convert(numero)
     valor = self.get_reg("00")
     self.set_data(direccion, valor)
-    print("5")
 
   def str_r1(self, numero):
     direccion = self.convert(numero)
     valor = self.get_reg("01")
     self.set_data(direccion, valor) 
-    print("6")
 
   def or_(self, numero): 
     num1 = numero[:2]
@@ -207,13 +202,11 @@ class ROM(IC):
     fact2 = self.get_reg(num2)
     rel = alu.Or(fact1, fact2)
     self.set_reg(num2, rel)
-    print("7")
 
   def ild_r1(self, numero): 
     direccion = self.convert(numero)
     valor = self.get_data(direccion)
     self.set_reg("01", valor)
-    print("8")
 
   def add(self, numero): 
     num1 = numero[:2]
@@ -222,7 +215,6 @@ class ROM(IC):
     fact2 = self.get_reg(num2)
     rel = alu.Add(fact1, fact2)
     self.set_reg(num2, rel)
-    print("9")
 
   def sub(self, numero): 
     num1 = numero[:2]
@@ -231,7 +223,6 @@ class ROM(IC):
     fact2 = self.get_reg(num2)
     rel = alu.Sub(fact1, fact2)
     self.set_reg(num2, rel)
-    print("10")
 
   def jmp(self, numero): 
     print("11")
@@ -240,21 +231,21 @@ class ROM(IC):
     print("12")
 
   def sys_info(self, numero): 
-    print(self.manufacturer)
-    print(self.build_date)
-    print(self.purpose)
-    print("13")
+    print("INFORMACIÓN DEL CPU")
+    print(F"Frabricado por: {self.manufacturer}")
+    print(F"Fecha de construcción: {self.build_date}")
+    print(F"Función {self.purpose}")
 
   def copy(self, numero):
     num1 = numero[:2]
     num2 = numero[2:]
     valor = self.get_reg(num1)
     self.set_reg(num2, valor)
-    print("14")
 
   def halt(self):
-
-    print("15")
+    print("Ejecución terminada, gracias por usar nuestro CPU :)")
+    sys.exit(0)
+    
 
 
   #Aquí ejecutan todas las instrucciones después de ser llamadas por el execute_f, final

@@ -20,10 +20,3 @@ class Parser(IC):
     return self.lines
 
   #Retorna la línea que se le solicita
-  def fetch(self, line): 
-    return self.lines[line]
-
-
-m = Parser("programa1.cpufm")
-
-print(m.fetch(0))
