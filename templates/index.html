@@ -1,0 +1,156 @@
+<head>
+  <!--CSS que parece una terminal. Con animaciones de 'typing'-->
+  <meta charset="utf-8"/>
+  <style>
+    body {
+      background-color: #184b29;
+      padding: 10px;
+    }
+
+    .fakeScreen {
+      background-color: #151515;
+      box-sizing: border-box;
+      width: 670px;
+      margin: 0 auto;
+      padding: 20px;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+
+    p {
+      position: relative;
+      left: 21%;
+      margin-left: -8.5em;
+      text-align: left;
+      font-size: 1.20em;
+      font-family: monospace;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+    }
+
+    .line1 {
+      color: #9CD9F0;
+      -webkit-animation: type .5s 1s steps(20, end) forwards;
+      -moz-animation: type .5s 1s steps(20, end) forwards;
+      -o-animation: type .5s 1s steps(20, end) forwards;
+      animation: type .5s 1s steps(20, end) forwards;
+    }
+
+    .cursor1 {
+      -webkit-animation: blink 1s 2s 2 forwards;
+      -moz-animation: blink 1s 2s 2 forwards;
+      -o-animation: blink 1s 2s 2 forwards;
+      animation: blink 1s 2s 2 forwards;
+    }
+
+    .line2 {
+      color: #CDEE69;
+      -webkit-animation: type .5s 4.25s steps(20, end) forwards;
+      -moz-animation: type .5s 4.25s steps(20, end) forwards;
+      -o-animation: type .5s 4.25s steps(20, end) forwards;
+      animation: type .5s 4.25s steps(20, end) forwards;
+    }
+
+    .cursor2 {
+      -webkit-animation: blink 1s 5.25s 2 forwards;
+      -moz-animation: blink 1s 5.25s 2 forwards;
+      -o-animation: blink 1s 5.25s 2 forwards;
+      animation: blink 1s 5.25s 2 forwards;
+    }
+
+    .line3 {
+      color: #E09690;
+      -webkit-animation: type .5s 7.5s steps(20, end) forwards;
+      -moz-animation: type .5s 7.5s steps(20, end) forwards;
+      -o-animation: type .5s 7.5s steps(20, end) forwards;
+      animation: type .5s 7.5s steps(20, end) forwards;
+    }
+
+    .cursor3 {
+      -webkit-animation: blink 1s 8.5s 2 forwards;
+      -moz-animation: blink 1s 8.5s 2 forwards;
+      -o-animation: blink 1s 8.5s 2 forwards;
+      animation: blink 1s 8.5s 2 forwards;
+    }
+
+    .line4 {
+      color: #fff;
+      -webkit-animation: type .5s 10.75s steps(20, end) forwards;
+      -moz-animation: type .5s 10.75s steps(20, end) forwards;
+      -o-animation: type .5s 10.75s steps(20, end) forwards;
+      animation: type .5s 10.75s steps(20, end) forwards;
+    }
+
+    .cursor4 {
+      -webkit-animation: blink 1s 11.5s infinite;
+      -moz-animation: blink 1s 8.5s infinite;
+      -o-animation: blink 1s 8.5s infinite;
+      animation: blink 1s 8.5s infinite;
+    }
+
+    @keyframes blink {
+      0% {
+        opacity: 0;
+      }
+      40% {
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @-webkit-keyframes type {
+      to {
+        width: 40em;
+      }
+    }
+
+    @-moz-keyframes type {
+      to {
+        width: 40em;
+      }
+    }
+
+    @-o-keyframes type {
+      to {
+        width: 40em;
+      }
+    }
+
+    @keyframes type {
+      to {
+        width: 40em;
+      }
+    }
+  </style>
+</head>
+
+{%block body%}
+<div class=fakeMenu>
+  <div class="fakeButtons fakeClose"></div>
+  <div class="fakeButtons fakeMinimize"></div>
+  <div class="fakeButtons fakeZoom"></div>
+  
+</div>
+<div class="fakeScreen">
+
+  {% for toPrin in toPrint %}
+    <p class="line1">&nbsp;&ldquo;{{toPrin}}&rdquo;,<span class="cursor1">_</span></p>
+  {% else %}
+  
+    
+    <p class="line3">&nbsp;&ldquo;El CPU no esta corriendo...&rdquo;,<span class="cursor1">_</span></p>
+  {% endfor %}
+  <p class="line2">><span class="cursor4">_</span></p>
+  <p class="line2">CPU detenido....<span class="cursor1">_</span></p>
+</div>
+
+{% endblock%}

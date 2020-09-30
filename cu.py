@@ -3,11 +3,15 @@ from IC import IC
 from ROM import ROM
 from RAM import Parser
 
+import time #para poder hacer el sleep
+bios=Bios('bios.yml')
+rom=ROM()
 #bios
 #carga configuración y la deja lista para el programa
 ##https://pypi.org/project/PyYAML/ para descarga yaml
 # fátima avila 
 
+toString = []
 
 class CU(IC):
   def __init__(self, filename):
@@ -74,20 +78,18 @@ class CU(IC):
     return comando
   """
 
-############  inicio de programa ################
+  ############  inicio de programa ################
+  def exec(self, debug = False):
 
-import time #para poder hacer el sleep
-bios=Bios('bios.yml')
-programa=CU('programa1.cpufm')
-rom=ROM()
-##todo con ROM para pasar las instrucciones / diccionario
-
-##inicia recorrido de las lineas
-
-for i in range(programa.tamano()):
-  #fetch
-    line2execute = programa.fetch(i) ##método del parser que carga la linea
+    programa=CU('programa1.cpufm')  
+    for i in range(programa.tamano()):
+    #fetch
+      line2execute = programa.fetch(i) ##método del parser que carga la linea
+    al = 'Paso',i
+    toString.append(al)
     print ('Paso',i)
+    el = 'Fetch ',i,line2execute
+    toString.append(el)
     print ('Fetch ',i,line2execute)
     time.sleep(bios.clock*2/.5)
     """
@@ -103,6 +105,8 @@ for i in range(programa.tamano()):
       time.sleep(bios.clock*2/.5)
       rom.execute_i(line2execute)
     else:
+      il = "Presione ENTER para continuar:"
+      toString.append(il)
       print("Presione ENTER para continuar:")
       foo = input()
       rom.execute_i(line2execute)
@@ -118,6 +122,16 @@ for i in range(programa.tamano()):
   #  print ('linea original',programa.lines_original[line2execute[0]])
     ##
     """
+    ol = '----------' 
+    toString.append(ol)
     print('----------') 
+    return toString
     ##fin recorrido de las lineas
+
+
+##todo con ROM para pasar las instrucciones / diccionario
+
+##inicia recorrido de las lineas
+
+
 
