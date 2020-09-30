@@ -22,6 +22,6 @@ class Parser(IC):
     return self.lines[line]
 
 class Data(IC):
-  def __init__(self, filenam): 
+  def __init__(self, yaml_file): 
      pass
   pass

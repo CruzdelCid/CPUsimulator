@@ -2,6 +2,7 @@ from Registers import Registers
 from IC import IC
 from ALU import ALU
 
+
 #PRUEBA 
 import yaml
 
@@ -312,15 +313,18 @@ class ROM(IC):
 class Bios():
   pass
 
-# rom = ROM()
-# line = ["LOAD_R0 0000", "LOAD_R1 0001", "ADD 0001", "STORE_R1 0011", "OUTPUT", "SYS_INFO"]
-# rom.execute_i(line[0])
-# rom.execute_i(line[1])
-# rom.execute_i(line[2])
-# rom.execute_i(line[3])
-# rom.execute_i(line[4])
-# rom.execute_i(line[5])
+"""
 
-# print(rom.get_reg("01"))
-# print("********")
-# print(data[3])
+rom = ROM()
+line = ["LOAD_R0 0000", "LOAD_R1 0001", "ADD 0001", "STORE_R1 0011", "OUTPUT", "SYS_INFO", "JUMP 0000"]
+rom.execute_i(line[0])
+rom.execute_i(line[1])
+rom.execute_i(line[2])
+rom.execute_i(line[3])
+rom.execute_i(line[4])
+rom.execute_i(line[5])
+
+print(rom.get_reg("01"))
+print("********")
+print(data[3])
+"""

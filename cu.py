@@ -1,15 +1,17 @@
 from Bios import Bios
 from IC import IC
 from ROM import ROM
+from RAM import Parser
+from RAM import Data
 #bios
 #carga configuración y la deja lista para el programa
 ##https://pypi.org/project/PyYAML/ para descarga yaml
 # fátima avila 
 
 
-
 class CU(IC):
   def __init__(self, filename):
+
     self.lines = [] ##atributo que contiene la lista de instrucciones 'limpias' sin comentarios ni \n
     self.lines_original = [] ##atributo que tiene la linea original del programa
     self.parse(filename)
@@ -81,9 +83,11 @@ for i in range(len(programa.lines)):
     print ('Decode',comando)
     if bios.clock > 0: 
       time.sleep(bios.clock*2/.5)
+      rom.execute_i(line2execute)
     else:
       print("Presione ENTER para continuar:")
       foo = input()
+      
     #execute ???
   
 
