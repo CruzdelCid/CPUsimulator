@@ -2,7 +2,6 @@ from Bios import Bios
 from IC import IC
 from ROM import ROM
 from RAM import Parser
-from RAM import Data
 #bios
 #carga configuración y la deja lista para el programa
 ##https://pypi.org/project/PyYAML/ para descarga yaml
@@ -36,7 +35,8 @@ class CU(IC):
     
   def fetch (self,pos):
     return self.lines[pos][1]  ##devuelve la instrucción de la linea (pos 1)
-
+  
+  """
       #Decoder
   # decodificar la linea e identificar comando y atributos o error si comando no identificado
   def decode (self,comando):
@@ -59,7 +59,7 @@ class CU(IC):
       arg2=None
      
     return comando
-
+  """
 
 ############  inicio de programa ################
 
@@ -76,17 +76,23 @@ for i in range(len(programa.lines)):
     print ('Paso',i)
     print ('Fetch ',i,line2execute)
     time.sleep(bios.clock*2/.5)
+    """
   #decode
     comando=programa.decode(line2execute)
     #arg1 = comando[1]
     #arg2 = comando[2]
     print ('Decode',comando)
+
+
+    """
     if bios.clock > 0: 
       time.sleep(bios.clock*2/.5)
       rom.execute_i(line2execute)
     else:
       print("Presione ENTER para continuar:")
       foo = input()
+      rom.execute_i(line2execute)
+
       
     #execute ???
   

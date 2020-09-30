@@ -18,10 +18,5 @@ class Parser(IC):
     self.lines = lines ##atributo que contiene la lista de instrucciones 'limpias' sin comentarios ni \n
 
   #Retorna la línea que se le solicita
-  def get_line(self, line): 
+  def fetch(self, line): 
     return self.lines[line]
-
-class Data(IC):
-  def __init__(self, yaml_file): 
-     pass
-  pass
